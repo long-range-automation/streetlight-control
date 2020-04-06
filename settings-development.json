@@ -1,0 +1,9 @@
+{
+    "chirp": {
+        "url": "http://localhost:4080",
+        "username": "",
+        "password": "",
+        "uplinkSecret": "aaaaaaaaaa",
+        "applicationId": "1"
+    }
+}
