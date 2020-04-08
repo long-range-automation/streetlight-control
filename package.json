@@ -1,6 +1,7 @@
 {
   "name": "streetlight-control-meteor",
   "private": true,
+  "license": "AGPL-3.0",
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
