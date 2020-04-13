@@ -95,6 +95,8 @@ Meteor.methods({
             title: String,
             description: String,
             relayNames: [String],
+            longitude: Number,
+            latitude: Number,
         });
 
         if (!this.userId) {

@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { Paper, TextField, Typography, Button } from '@material-ui/core';
 import { useParams, Redirect } from 'react-router-dom';
 import { DeviceCollection, Device } from '../api/devices';
+import { Map, Marker, TileLayer, Popup } from 'react-leaflet'
 import { Meteor } from 'meteor/meteor';
 
 const useStyles = makeStyles(theme => ({
@@ -26,8 +27,17 @@ function Form({ device, onSubmit, processing }) {
     let [title, setTitle] = useState(device.title || '');
     let [description, setDescription] = useState(device.description || '');
     let [relayNames, setRelayNames] = useState(device.relayNames || []);
+    let [location, setLocation] = useState({
+        lat: device.latitude,
+        lng: device.longitude,
+    });
 
-    return <form onSubmit={(ev) => onSubmit(ev, { title, description, relayNames })}>
+    let currentLocation = location.lat && location.lng ? [location.lat, location.lng] : [47.674635091761616, 9.50868574758178];
+    let currentZoom = location.lat && location.lng ? 13 : 8;
+
+    console.log(currentLocation, currentZoom);
+
+    return <form onSubmit={(ev) => onSubmit(ev, { title, description, relayNames, longitude: location.lng, latitude: location.lat })}>
         <TextField disabled={processing} fullWidth margin="normal" label="Title" value={title} onChange={ev => setTitle(ev.target.value)} />
 
         <TextField disabled={processing} fullWidth margin="normal" label="Description" multiline rows="4" value={description} onChange={ev => setDescription(ev.target.value)} />
@@ -40,6 +50,19 @@ function Form({ device, onSubmit, processing }) {
                 setRelayNames(names);
             }} />
         })}
+
+        <Map center={currentLocation} onclick={ev => setLocation(ev.latlng)} zoom={currentZoom} style={{ width: '100%', height: 400, marginTop: 8 }}>
+            <TileLayer size=""
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
+            {(location.lat && location.lng) &&
+                <Marker position={currentLocation}>
+
+                <Popup>{device.name}</Popup>
+            </Marker>}
+        </Map>
 
         <Typography align="right">
             <Button disabled={processing} type="submit" variant="outlined" color="primary">Speichern</Button>
