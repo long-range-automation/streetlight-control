@@ -19,6 +19,10 @@ export default class Countdown extends Component<{ date: string }, {minutes: num
         }, 1000);
     }
 
+    componentWillUnmount() {
+        this.stop();
+    }
+
     calculateCountdown(endDate) {
         endDate = new Date(endDate);
         let currentDate = new Date();
