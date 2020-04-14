@@ -51,7 +51,7 @@ export default function NewDevice() {
             return;
         }
 
-        const document = { id, name, title, description, areaId, relayNames };
+        const document = { _id: id, name, title, description, areaId, relayNames };
 
         Meteor.call('devices.insert', document, (err) => {
             if (err) console.warn('Error while updating device', err);

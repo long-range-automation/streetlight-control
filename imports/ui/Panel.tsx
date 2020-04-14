@@ -27,6 +27,8 @@ import AreaLinkList from './AreaLinkList';
 import AreaList from './AreaList';
 import EditDevice from './EditDevice';
 import NewDevice from './NewDevice';
+import NewArea from './NewArea';
+import EditArea from './EditArea';
 
 const drawerWidth = 240;
 
@@ -228,7 +230,9 @@ export default function Panel() {
                     </IconButton>
                 </div>
                 <Divider />
+
                 <AreaLinkList />
+
                 <Divider />
                 <List>
                     <ListItem button component={RouterLink} to={`${match.path}/about`}>
@@ -248,6 +252,12 @@ export default function Panel() {
                     </Route>
                     <Route path={`${match.path}/area/:areaId/new`}>
                         <NewDevice />
+                    </Route>
+                    <Route path={`${match.path}/area/new`}>
+                        <NewArea />
+                    </Route>
+                    <Route path={`${match.path}/area/:areaId/edit`}>
+                        <EditArea />
                     </Route>
                     <Route path={`${match.path}/area/:areaId`}>
                         <Area />

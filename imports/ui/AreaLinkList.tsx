@@ -16,8 +16,6 @@ function AreaList({ areas }: {areas: Area[]}) {
     const match = useRouteMatch();
     const location = useLocation();
 
-    console.log('location', location)
-
     return (
         <List>
             {areas.map(area => {

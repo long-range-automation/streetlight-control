@@ -41,7 +41,10 @@ function Area(props) {
                     </Paper>
 
                     <Paper className={classes.paper}>
-                        <Link to={`${location.pathname}/new`}>Gerät hinzufügen</Link>
+                        <ul>
+                            <li><Link to={`${location.pathname}/new`}>Gerät hinzufügen</Link></li>
+                            <li><Link to={`${location.pathname}/edit`}>Bereich bearbeiten</Link></li>
+                        </ul>
                     </Paper>
                 </Grid>
             </Grid>
@@ -51,7 +54,7 @@ function Area(props) {
 
 const AreaTracker = withTracker(({ _id }) => {
     return {
-        area: AreaCollection.find({ _id }).fetch()[0],
+        area: AreaCollection.findOne({ _id }),
         devices: DeviceCollection.find({ areaId: _id }).fetch(),
     }
 })(Area);

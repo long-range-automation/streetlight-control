@@ -65,6 +65,7 @@ Meteor.methods({
         //@TODO check if areaId exists
         //@TODO check if name is unique
         //@TODO check relayNames.length === 4
+        //@TODO update schedule
 
         DeviceCollection.insert({
             ...document,
