@@ -18,6 +18,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import HelpIcon from '@material-ui/icons/Help';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
 import React from 'react';
@@ -30,16 +31,13 @@ import NewDevice from './NewDevice';
 import NewArea from './NewArea';
 import EditArea from './EditArea';
 
-const drawerWidth = 240;
+const drawerWidth = 320;
 
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
     },
     toolbar: {
-        [theme.breakpoints.up('sm')]: {
-            paddingRight: 24, // keep right padding when drawer closed
-        }
     },
     toolbarIcon: {
         display: 'flex',
@@ -109,9 +107,6 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         width: 0,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(7),
-        },
     },
     grow: {
         flexGrow: 1,
@@ -126,10 +121,6 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
         marginLeft: 0,
         width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
     },
     searchIcon: {
         width: theme.spacing(7),
@@ -231,7 +222,16 @@ export default function Panel() {
                 </div>
                 <Divider />
 
-                <AreaLinkList />
+                <List>
+                    <ListItem button component={RouterLink} to={`${match.path}/area`}>
+                        <ListItemIcon>
+                            <GroupWorkIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Areas" />
+                    </ListItem>
+
+                    <AreaLinkList />
+                </List>
 
                 <Divider />
                 <List>

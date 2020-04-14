@@ -1,13 +1,18 @@
-import React from 'react';
+import { Avatar, List, ListItem, ListItemAvatar, ListItemText, makeStyles } from '@material-ui/core';
 import { withTracker } from 'meteor/react-meteor-data';
-import { AreaCollection, Area } from '../api/areas';
-import { Link as RouterLink, useRouteMatch, useLocation } from 'react-router-dom';
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
-import { List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
+import React from 'react';
+import { Link as RouterLink, useLocation, useRouteMatch } from 'react-router-dom';
+import { Area, AreaCollection } from '../api/areas';
 
 const useStyles = makeStyles(theme => ({
-    current: {
-        backgroundColor: '#efefef',
+    listItem: {
+        paddingLeft: theme.spacing(4),
+    },
+    avatar: {
+        width: '24px',
+        height: '24px',
+        fontSize: '0.8rem',
+        backgroundColor: 'rgba(0, 0, 0, 0.35)',
     },
 }));
 
@@ -17,15 +22,15 @@ function AreaList({ areas }: {areas: Area[]}) {
     const location = useLocation();
 
     return (
-        <List>
+        <List >
             {areas.map(area => {
                 const target = `${match.path}/area/${area._id}`;
 
                 return (
-                    <ListItem key={area._id} className={location.pathname.indexOf(target) === 0 ? classes.current : undefined} button component={RouterLink} to={target}>
-                        <ListItemIcon>
-                            <GroupWorkIcon />
-                        </ListItemIcon>
+                    <ListItem key={area._id} className={classes.listItem} selected={location.pathname.indexOf(target) === 0} button component={RouterLink} to={target}>
+                        <ListItemAvatar>
+                            <Avatar className={classes.avatar}>{area.name.slice(0, 2).toUpperCase()}</Avatar>
+                        </ListItemAvatar>
                         <ListItemText primary={area.name} />
                     </ListItem>
                 )
