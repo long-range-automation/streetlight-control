@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { Paper, TextField, Typography, Button } from '@material-ui/core';
 import { useParams, Redirect } from 'react-router-dom';
-import { DeviceCollection, Device } from '../api/devices';
+import { DeviceCollection, DeviceDocument } from '../api/devices';
 import Alert from '@material-ui/lab/Alert';
 import { Meteor } from 'meteor/meteor';
 

@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { Paper, TextField, Typography, Button } from '@material-ui/core';
 import { useParams, Redirect } from 'react-router-dom';
-import { DeviceCollection, Device } from '../api/devices';
+import { DeviceCollection, DeviceDocument } from '../api/devices';
 import { Map, Marker, TileLayer, Popup } from 'react-leaflet'
 import { Meteor } from 'meteor/meteor';
 
@@ -70,7 +70,7 @@ function Form({ device, onSubmit, processing }) {
     </form>;
 }
 
-function EditDevice(props: { _id: string, device: Device }) {
+function EditDevice(props: { _id: string, device: DeviceDocument }) {
     const classes = useStyles({});
 
     const [processing, setProcessing] = useState(false);

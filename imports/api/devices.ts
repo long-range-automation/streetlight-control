@@ -1,10 +1,10 @@
 import { Mongo } from 'meteor/mongo';
-import { Schedule } from './areas';
+import { ScheduleDocument } from './areas';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { METEOR_NOT_AUTHORIZED } from '../Const';
 
-export interface Device {
+export interface DeviceDocument {
     _id?: string
     name: string
     title: string
@@ -19,7 +19,7 @@ export interface Device {
     relayMode: number
     requestedRelayMode: number
     relayNames: string[]
-    schedule: Schedule
+    schedule: ScheduleDocument
     targetChecksum: number
     remoteChecksum: number
     timeOffset: number
@@ -27,7 +27,7 @@ export interface Device {
     longitude: number
 }
 
-export const DeviceCollection = new Mongo.Collection<Device>('devices');
+export const DeviceCollection = new Mongo.Collection<DeviceDocument>('devices');
 
 interface NewDeviceDocument {
     _id: string,

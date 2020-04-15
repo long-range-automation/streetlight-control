@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import MaskedInput from 'react-text-mask';
 import { Map, Marker, TileLayer, Popup } from 'react-leaflet'
-import { Area } from '../api/areas';
+import { AreaDocument } from '../api/areas';
 import * as suncalc from 'suncalc';
 import { Meteor } from 'meteor/meteor';
 
@@ -74,7 +74,7 @@ function TimeMaskedTextField(props) {
 const AreaConfiguration = (props) => {
     const classes = useStyles({});
 
-    let area: Area = props.area;
+    let area: AreaDocument = props.area;
 
     let sunTimes = suncalc.getTimes(new Date(), area.latitude, area.longitude);
 

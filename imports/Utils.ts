@@ -1,4 +1,4 @@
-import { Schedule } from "./api/areas";
+import { ScheduleDocument } from "./api/areas";
 
 export function getTimeFormated(rawDate: any) {
     let date = new Date(rawDate);
@@ -8,7 +8,7 @@ export function getTimeFormated(rawDate: any) {
     return (hours < 10 ? `0${hours}` : hours.toString(10)) + ':' + (minutes < 10 ? `0${minutes}` : minutes.toString(10));
 }
 
-export function getScheduleChecksum(schedule: Schedule) {
+export function getScheduleChecksum(schedule: ScheduleDocument) {
     return [
         timeToByte(schedule.timeOn),
         timeToByte(schedule.timeOff),

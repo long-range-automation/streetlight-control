@@ -6,7 +6,7 @@ import { DeviceCollection } from './devices';
 import { getScheduleChecksum, getTimeFormated } from '../Utils';
 import * as suncalc from 'suncalc'
 
-export interface Schedule {
+export interface ScheduleDocument {
     timeOn: string
     timeOff: string
     outageOn: string
@@ -15,10 +15,10 @@ export interface Schedule {
     error?: string
 }
 
-export interface Area {
+export interface AreaDocument {
     _id?: string
     name: string
-    schedule: Schedule
+    schedule: ScheduleDocument
     latitude: number
     longitude: number
     sunset?: string
@@ -35,7 +35,7 @@ interface EditAreaDocument extends NewAreaDocument {
 }
 
 
-export const AreaCollection = new Mongo.Collection<Area>('areas');
+export const AreaCollection = new Mongo.Collection<AreaDocument>('areas');
 
 Meteor.methods({
     'areas.insert'(document: NewAreaDocument) {
@@ -79,7 +79,7 @@ Meteor.methods({
             $set: document,
         });
     },
-    'areas.updateSchedule'(id: string, schedule: Schedule) {
+    'areas.updateSchedule'(id: string, schedule: ScheduleDocument) {
         check(id, String);
         check(schedule, {
             timeOn: String,

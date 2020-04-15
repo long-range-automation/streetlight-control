@@ -1,8 +1,8 @@
-import { Device } from "/imports/api/devices";
+import { DeviceDocument } from "/imports/api/devices";
 import { SUPPORTED_VERSION, CONFIGURATION_MESSAGE } from "/imports/Const";
 import { timeToByte } from "/imports/Utils";
 
-export function buildConfigurationMessage(device: Device): string {
+export function buildConfigurationMessage(device: DeviceDocument): string {
     let data = [];
     let schedule = device.schedule || {
         timeOn: undefined,
