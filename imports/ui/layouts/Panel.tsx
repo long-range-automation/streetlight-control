@@ -1,3 +1,4 @@
+import { Menu, MenuItem } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,30 +7,25 @@ import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import Link from '@material-ui/core/Link';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import HelpIcon from '@material-ui/icons/Help';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
 import React from 'react';
-import { Link as RouterLink, Route, Switch, useRouteMatch } from "react-router-dom";
-import Area from './Area';
-import AreaLinkList from './AreaLinkList';
-import AreaList from './AreaList';
-import EditDevice from './EditDevice';
-import NewDevice from './NewDevice';
-import NewArea from './NewArea';
-import EditArea from './EditArea';
+import { Route, Switch, useRouteMatch } from "react-router-dom";
+import Area from '../Area';
+import AreaList from '../AreaList';
+import SidebarLinks from '../components/navbars/SidebarLinks';
+import EditArea from '../EditArea';
+import EditDevice from '../EditDevice';
+import NewArea from '../NewArea';
+import NewDevice from '../NewDevice';
+import { Meteor } from 'meteor/meteor';
 
 const drawerWidth = 320;
 
@@ -121,6 +117,10 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
         marginLeft: 0,
         width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(3),
+            width: 'auto',
+        },
     },
     searchIcon: {
         width: theme.spacing(7),
@@ -148,6 +148,7 @@ export default function Panel() {
     const classes = useStyles({});
     const match = useRouteMatch();
     const [open, setOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -155,7 +156,30 @@ export default function Panel() {
         setOpen(false);
     };
 
+    const isMenuOpen = Boolean(anchorEl);
+
+    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
     const menuId = 'primary-search-account-menu';
+    const renderMenu = (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={menuId}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={()=>{Meteor.logout((err) => {if(!err)window.location='/';});handleMenuClose()}}>Logout</MenuItem>
+        </Menu>
+      );
 
     return (
         <div className={classes.root}>
@@ -201,13 +225,14 @@ export default function Panel() {
                         aria-label="Account of current user"
                         aria-controls={menuId}
                         aria-haspopup="true"
-                        // onClick={handleProfileMenuOpen}
+                        onClick={handleProfileMenuOpen}
                         color="inherit"
                     >
                         <AccountCircle />
                     </IconButton>
                 </Toolbar>
             </AppBar>
+            {renderMenu}
             <Drawer
                 variant="permanent"
                 classes={{
@@ -222,26 +247,7 @@ export default function Panel() {
                 </div>
                 <Divider />
 
-                <List>
-                    <ListItem button component={RouterLink} to={`${match.path}/area`}>
-                        <ListItemIcon>
-                            <GroupWorkIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Areas" />
-                    </ListItem>
-
-                    <AreaLinkList />
-                </List>
-
-                <Divider />
-                <List>
-                    <ListItem button component={RouterLink} to={`${match.path}/about`}>
-                        <ListItemIcon>
-                            <HelpIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Hilfe" />
-                    </ListItem>
-                </List>
+                <SidebarLinks />
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />

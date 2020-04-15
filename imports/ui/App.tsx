@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import ProtectedRoute from '../router/ProtectedRoute';
 import SignIn from './SignIn';
-import Panel from './Panel';
+import Panel from './layouts/Panel';
 
 const theme = createMuiTheme({
   palette: {

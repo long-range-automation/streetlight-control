@@ -2,7 +2,7 @@ import { Avatar, List, ListItem, ListItemAvatar, ListItemText, makeStyles } from
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import { Link as RouterLink, useLocation, useRouteMatch } from 'react-router-dom';
-import { Area, AreaCollection } from '../api/areas';
+import { Area, AreaCollection } from '../../../api/areas';
 
 const useStyles = makeStyles(theme => ({
     listItem: {
