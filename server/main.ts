@@ -7,7 +7,7 @@ import * as suncalc from 'suncalc'
 import { DeviceCollection } from '/imports/api/devices';
 import { Accounts } from 'meteor/accounts-base'
 
-if(process.argv[3] === 'user:create') {
+if (process.argv[3] === 'user:create') {
   if (process.argv.length !== 8) {
     console.warn('*** user:create username email name password');
 
@@ -53,6 +53,8 @@ function updateSchedules() {
         schedule,
         targetChecksum: getScheduleChecksum(schedule),
       }
+    }, {
+      multi: true,
     });
   });
 }

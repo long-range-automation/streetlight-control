@@ -117,6 +117,8 @@ Meteor.methods({
                 schedule,
                 targetChecksum: getScheduleChecksum(schedule),
             }
+        }, {
+            multi: true,
         });
     }
 })
