@@ -143,6 +143,7 @@ const Device = ({ device }: DeviceProps) => {
                     Zeitverschiebung: {offset}{errors.indexOf('offset') > -1 && <ErrorIcon style={{ marginLeft: 5, color: 'red', position: 'relative', top: '3px', width: '0.8em' }} />}<br />
                     Geräte-Id: {device._id}<br />
                     Gerätename: {device.name}<br />
+                    Zeitplan: {device.schedule.timeOn}, {device.schedule.outageOn}, {device.schedule.outageOff}, {device.schedule.timeOff}<br />
                     Koordinaten: {(device.longitude && device.latitude) ? <a href={`https://www.openstreetmap.org/?mlat=${device.latitude}&mlon=${device.longitude}#map=8/${device.latitude}/${device.longitude}`}>{device.latitude} {device.longitude}</a> : 'Unbekannt'}</Typography>
             </ExpansionPanelDetails>
         </ExpansionPanel>
