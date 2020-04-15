@@ -7,8 +7,6 @@ import * as suncalc from 'suncalc'
 import { DeviceCollection } from '/imports/api/devices';
 import { Accounts } from 'meteor/accounts-base'
 
-console.log('process.argv', process.argv);
-
 if(process.argv[3] === 'user:create') {
   if (process.argv.length !== 8) {
     console.warn('*** user:create username email name password');
