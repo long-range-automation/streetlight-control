@@ -5,6 +5,35 @@ import Lora from './lora';
 import { getScheduleChecksum, getTimeFormated } from '/imports/Utils';
 import * as suncalc from 'suncalc'
 import { DeviceCollection } from '/imports/api/devices';
+import { Accounts } from 'meteor/accounts-base'
+
+console.log('process.argv', process.argv);
+
+if(process.argv[3] === 'user:create') {
+  if (process.argv.length !== 8) {
+    console.warn('*** user:create username email name password');
+
+    process.exit(20);
+  }
+
+  const username = process.argv[4];
+  const email = process.argv[5];
+  const name = process.argv[6];
+  const password = process.argv[7];
+
+  const newUserId = Accounts.createUser({
+    username,
+    email,
+    password,
+    profile: {
+      name
+    },
+  });
+
+  console.log(`Created new user with id ${newUserId}.`);
+
+  process.exit(0);
+}
 
 WebApp.connectHandlers.use('/hooks/chirp', Lora.onUplink);
 
@@ -57,19 +86,5 @@ Meteor.startup(() => {
 
   if (!Meteor.settings.chirp.applicationId) {
     console.warn('**** Chirp Stack application id missing');
-  }
-
-  if (AreaCollection.find().count() === 0) {
-    AreaCollection.insert({
-      name: 'Gebiet 1',
-      schedule: {
-        timeOn: '',
-        timeOff: '',
-        outageOn: '',
-        outageOff: '',
-      },
-      latitude: 47.694628,
-      longitude: 9.272657,
-    });
   }
 });
