@@ -13,7 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import { Device as IDevice, DeviceCollection } from '../api/devices';
+import { DeviceDocument } from '../api/devices';
 import Moment from 'react-moment';
 import { TableFooter } from '@material-ui/core';
 import Countdown from './Countdown';
@@ -41,8 +41,11 @@ const ExpansionPanelDetails = withStyles(theme => ({
     },
 }))(MuiExpansionPanelDetails);
 
-const Device = (props) => {
-    let device: IDevice = props.device;
+interface DeviceProps {
+    device: DeviceDocument
+};
+
+const Device = ({ device }: DeviceProps) => {
 
     if (!device) {
         return <p>Loading....</p>;
@@ -67,7 +70,7 @@ const Device = (props) => {
         errors.push('offset');
     }
 
-    let secondsSinceLastContact = Math.round(((new Date()).getTime() - (new Date(device.lastSeen)).getTime()) / 1000);
+    let secondsSinceLastContact = Math.round(((new Date()).getTime() - device.lastSeen.getTime()) / 1000);
 
     if (secondsSinceLastContact > (3 * 60 * device.nextWindowOffset)) {
         errors.push('silence');
@@ -133,7 +136,7 @@ const Device = (props) => {
 
                 <Typography variant="body2" color="textSecondary">
                     Letzte Aktivität: {device.lastSeen ? <Moment fromNow>{device.lastSeen}</Moment> : '?'}{errors.indexOf('silence') > -1 && <ErrorIcon style={{ marginLeft: 5, color: 'red', position: 'relative', top: '3px', width: '0.8em' }} />}<br />
-                    Nächstes Empfangsfenster: {device.nextWindow ? <Countdown date={device.nextWindow}></Countdown> : '?'}<br />
+                    Nächstes Empfangsfenster: {device.nextWindow ? <Countdown date={device.nextWindow.toISOString()}></Countdown> : '?'}<br />
                     Wartung: {device.isMaintenance ? 'Ja' : 'Nein'}<br />
                     GPS Signal: {device.hasGPSSignal ? 'Ja' : 'Nein'}<br />
                     Konfiguration:  {updateNeeded ? 'Überholt' : 'Aktuell'}<br />

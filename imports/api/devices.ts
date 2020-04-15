@@ -10,9 +10,9 @@ export interface DeviceDocument {
     title: string
     description: string
     areaId: string
-    lastSeen: string
+    lastSeen: Date
     nextWindowOffset: number
-    nextWindow: string
+    nextWindow: Date
     isMaintenance: boolean
     hasGPSSignal: boolean
     relayState: number
@@ -69,9 +69,9 @@ Meteor.methods({
 
         DeviceCollection.insert({
             ...document,
-            lastSeen: '',
+            lastSeen: new Date(0),
             nextWindowOffset: 0,
-            nextWindow: '',
+            nextWindow: new Date(0),
             isMaintenance: false,
             hasGPSSignal: false,
             relayState: 0,

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { Paper, Typography } from '@material-ui/core';
-import { AreaCollection } from '../api/areas';
+import { AreaCollection, AreaDocument } from '../api/areas';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +21,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function AreaList({ areas }) {
+interface AreaListProps {
+    areas: AreaDocument[],
+}
+
+function AreaList({ areas }: AreaListProps) {
     const classes = useStyles({});
 
     return (

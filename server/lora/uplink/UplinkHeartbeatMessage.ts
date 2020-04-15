@@ -40,9 +40,9 @@ export class UplinkHeartbeatMessage {
         let lastSeen = this.message.getDate();
 
         let document = {
-            lastSeen: lastSeen.toISOString(),
+            lastSeen,
             nextWindowOffset: heartbeatMessage.nextWindow,
-            nextWindow: (new Date(lastSeen.getTime() + (heartbeatMessage.nextWindow * 60 * 1000))).toISOString(),
+            nextWindow: (new Date(lastSeen.getTime() + (heartbeatMessage.nextWindow * 60 * 1000))),
             isMaintenance: heartbeatMessage.isMaintenanceMode,
             hasGPSSignal: heartbeatMessage.hasGPSSignal,
             relayState: relayStatesToNumber([heartbeatMessage.relay0, heartbeatMessage.relay1, heartbeatMessage.relay2, heartbeatMessage.relay3]),
