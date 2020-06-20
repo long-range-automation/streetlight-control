@@ -70,7 +70,7 @@ const Device = ({ device }: DeviceProps) => {
         errors.push('offset');
     }
 
-    let secondsSinceLastContact = Math.round(((new Date()).getTime() - device.lastSeen.getTime()) / 1000);
+    let secondsSinceLastContact = device.lastSeen ? Math.round(((new Date()).getTime() - device.lastSeen.getTime()) / 1000) : -1;
 
     if (secondsSinceLastContact > (3 * 60 * device.nextWindowOffset)) {
         errors.push('silence');
